@@ -1,26 +1,42 @@
 package gui;
 
+import java.util.Locale;
+
 import gui.util.Alerts;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class ViewController {
-	
+
 	@FXML
-	private Button btTest;
-	
+	private TextField txtNumber1;
+
 	@FXML
-	private Button btAlert;
-	
+	private TextField txtNumber2;
+
 	@FXML
-	public void onBtTestAction(){
-		System.out.println("Button Click");
-	}
-	
+	private Label labelResult;
+
 	@FXML
-	public void onBtAlertAction(){
-		Alerts.showAlert("Alert title", "Alert header", "Hello !!", AlertType.INFORMATION);
+	private Button btSum;
+
+	@FXML
+	public void onBtSumAction() {
+
+		try {
+			Locale.setDefault(Locale.US);
+			double value1 = Double.parseDouble(txtNumber1.getText());
+			double value2 = Double.parseDouble(txtNumber2.getText());
+			double sum = value1 + value2;
+
+			labelResult.setText(String.format("%.2f", sum));
+		} catch (NumberFormatException e) {
+			Alerts.showAlert("Error", "Parse error", e.getMessage(), AlertType.ERROR);
+		}
+
 	}
 
-}	
+}
